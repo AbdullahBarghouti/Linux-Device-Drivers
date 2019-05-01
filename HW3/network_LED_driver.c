@@ -209,11 +209,7 @@ static int __init char_driver_init(void){
 		//	goto unregister_pci_driver;
 	}
 	
-	// return 0;
-/*	 
-unregister_pci_driver:
-	pci_unregister_driver(&pci_networkLEDBlinkDriver);
-*/
+
 	return 0;
 }
 
@@ -222,7 +218,8 @@ unregister_pci_driver:
 ADD THIS FOR HW3*/
 static void __exit char_driver_exit(void){
 	cdev_del(&mydev.cdev);
-	unregister_chrdev_region(mydev.mydev_node, DEVCNT);	
+	unregister_chrdev_region(mydev.mydev_node, DEVCNT);
+	pci_unregister_driver(&pci_networkLEDBlinkDriver);
 	printk(KERN_INFO "Unloaded module \n");
 }
 //MODULE_TABLE(pci,pci_networkLEDBlinkDriver_table)
@@ -231,5 +228,4 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION("0.2");
 module_init(char_driver_init);
 module_exit(char_driver_exit);
-
 
