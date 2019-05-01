@@ -1,0 +1,39 @@
+Script started on Sun 21 Apr 2019 12:45:28 AM PDT
+barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ make
+make -C /lib/modules/4.15.0-47-generic/build SUBDIRS=/home/barghouti/Desktop/hw/hw2/Kernel modules
+make[1]: Entering directory '/usr/src/linux-headers-4.15.0-47-generic'
+Makefile:976: "Cannot use CONFIG_STACK_VALIDATION=y, please install libelf-dev, libelf-devel or elfutils-libelf-devel"
+  CC [M]  /home/barghouti/Desktop/hw/hw2/Kernel/char_driver.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/barghouti/Desktop/hw/hw2/Kernel/char_driver.mod.o
+  LD [M]  /home/barghouti/Desktop/hw/hw2/Kernel/char_driver.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-47-generic'
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ sudo insmod char_driver.ko
+[sudo] password for barghouti: 
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ cd ../userspace/
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/userspace$ ./a.out 
+
+Read from device: 40
+Enter new value to send to the device 40
+the new value that was sent to the driver is: 40
+
+barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/userspace$ ./a.out 
+
+Read from device: 40
+Enter new value to send to the device 120
+the new value that was sent to the driver is: 120
+
+barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/userspace$ sudo rmmod char_driver
+
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ sudo insmod char_driver.ko sys_intial_value=11]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ cd ../userspace/
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/userspace$ ./a.out 
+
+Read from device: 11
+Enter new value to send to the device 11
+the new value that was sent to the driver is: 11
+
+]0;barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/userspace$ exit
+exit
+
+Script done on Sun 21 Apr 2019 12:49:04 AM PDT

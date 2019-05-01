@@ -1,0 +1,25 @@
+Abdullah Barghouti 
+ECE 373 
+HW3 part 1
+
+1.
+a) Tealtek ALC888
+b) Super IO Winbond E83627DHG
+c) 2 LAN devices. LAN1: Intel 82567V; LAN2: Intel 8258V
+d) 6 serial ports
+
+2. 
+a) Pins 31,30, and 33
+b) 0x00000 / 0x00004
+c) Bit 26 is responsible for device rest
+
+3.
+a) LED control - 0x00E00
+b) LED1 OFF requires bit pattern 0x1111 for bits 11:8 in LED Control 
+c) LED2 BLINK requires 1 to be written to bit 23
+
+4.
+a) Winbond
+b) Yes
+c) Manufactures website/ archives 
+

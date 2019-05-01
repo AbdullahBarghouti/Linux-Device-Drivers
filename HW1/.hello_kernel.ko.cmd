@@ -1,0 +1,1 @@
+cmd_/media/psf/Home/Desktop/ECE373/Homework/HW1/hello_kernel.ko := ld -r -m elf_x86_64 -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /media/psf/Home/Desktop/ECE373/Homework/HW1/hello_kernel.ko /media/psf/Home/Desktop/ECE373/Homework/HW1/hello_kernel.o /media/psf/Home/Desktop/ECE373/Homework/HW1/hello_kernel.mod.o ;  true

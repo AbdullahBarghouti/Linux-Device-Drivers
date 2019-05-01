@@ -1,0 +1,7 @@
+Script started on Sun 21 Apr 2019 12:51:34 AM PDT
+barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ cat /proc/devices | grep char
+243 char_driver
+barghouti@barghouti-VirtualBox: ~/Desktop/hw/hw2/Kernel$ exit
+exit
+
+Script done on Sun 21 Apr 2019 12:52:12 AM PDT

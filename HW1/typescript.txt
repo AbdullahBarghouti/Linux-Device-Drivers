@@ -1,0 +1,12 @@
+Script started on Sat 13 Apr 2019 03:48:39 PM PDT
+abdullahbarghouti@ubuntu:$ pwd
+/home/abdullahbarghouti/Desktop/ECE373/HW/HW1
+abdullahbarghouti@ubuntu:ls -l
+total 0
+-rw-rw-r-- 1 abdullahbarghouti abdullahbarghouti 0 Apr 13 15:48 typescript
+abdullahbarghouti@ubuntu:$ mkdir ECE373
+abdullahbarghouti@ubuntu$ cd ECE373/
+abdullahbarghouti@ubuntu:$ exit
+exit
+
+Script done on Sat 13 Apr 2019 03:49:12 PM PDT
