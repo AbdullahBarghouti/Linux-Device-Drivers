@@ -4,11 +4,11 @@ ECE 373 HW 3
 Portland State University 2019
 */
 
-#include <linux/module.h>
+#include <linux/module.h>	//important to know 
 #include <linux/types.h>
 #include <linux/kdev_t.h>
 #include <linux/fs.h>
-#include <linux/cdev.h>
+#include <linux/cdev.h>		//important to know 
 #include <linux/usb.h>
 #include <linux/slab.h>
 #include <linux/uaccess.h>
@@ -19,7 +19,10 @@ Portland State University 2019
 
 #define DEVCNT 1
 #define DEVNAME "blinkDriver"
+#define LEDCONTROLREGISTER  0x00E00
+
 char blinkDriver_name[] = "blinkDriver";
+uint32_t new_led_val;
 
 static struct mydev_dev{
 	struct cdev cdev;
@@ -36,11 +39,12 @@ static struct myPCI {
 }	myPCI;
 /*		*/
 
-
 static int sys_intial_value = 40;
 module_param(sys_intial_value, int, S_IRUSR | S_IWUSR);
 
 // function for opening module 
+//if you call the pointer inode (as most driver writers do),
+//the function can extract the device number by looking at inode->i_rdev.
 static int char_driver_open(struct inode *inode, struct file *file)
 {
 	printk(KERN_INFO "open module succeful \n");
@@ -54,21 +58,25 @@ static ssize_t char_driver_read(struct file *file, char __user *buf, size_t len,
 	int ret;
 	printk(KERN_INFO "Currently Reading...");
 
-	if(*offset >= sizeof(int))
+	if(*offset >= sizeof(uint32_t))
 		return 0;	
 	if(!buf){
 		ret = -EINVAL;
 		goto out;
 	}
-	if(copy_to_user(buf, &mydev.syscall_val, sizeof(int))){
+	printk(KERN_INFO "BEFORE readl");
+	mydev.led_inital_val = readl(myPCI.hw_addr + LEDCONTROLREGISTER);
+	printk(KERN_INFO "new_led_val before read is 0x%08x", new_led_val);
+	
+	if(copy_to_user(buf, &new_led_val, sizeof(uint32_t))){
 		ret = -EFAULT;
 		goto out;
 	}
-	ret = sizeof(int);
+	ret = sizeof(uint32_t);
 	*offset += len;
 
 	/* Good to go, so printk the thingy */
-	printk(KERN_INFO "User got from us %d\n", mydev.sys_int);
+	printk(KERN_INFO "User got from us %d\n", new_led_val, sizeof(new_led_val));
 	
 out:
 	return ret;
@@ -76,37 +84,40 @@ out:
 
 //function to write/ update based on userspace
 static ssize_t char_driver_write(struct file *file, const char __user *buf, size_t len, loff_t *offset){
-	
-	char *kern_buf;
 	int ret;
+	uint32_t led_val;
+
 	printk(KERN_INFO "Currently Writing...");
 	
 	if(!buf){
 		ret = -EINVAL;
 		goto out;
 	}
-	kern_buf = kmalloc(len, GFP_KERNEL);
-	if(!kern_buf){
-		ret = -ENOMEM;
+
+	if(copy_from_user(&led_val, buf, len)){
+		ret = -EFAULT;
+		printk(KERN_ERR "copy_from_user led_val failed");
 		goto out;
 	}
-	if(copy_from_user(kern_buf, buf, len)){
-		ret = -EFAULT;
-		goto mem_out;
-	}
+
 	ret = len;
-	printk(KERN_INFO "Userspace wrote \"%s\" to us \n", kern_buf);
-mem_out:
-	kfree(kern_buf);
+	printk(KERN_INFO "userspace wrote %08x \n", led_val);
+
+	writel(led_val, myPCI.hw_addr + LEDCONTROLREGISTER);
+	mydev.led_inital_val = readl(myPCI.hw_addr + LEDCONTROLREGISTER);
+
+	printk(KERN_INFO "writel done!");
+
 out:
 	return ret;
 }
+
 /*NEW FOR HW3 */
 static int pci_networkLEDBlinkDriver_probe(struct pci_dev *pdev, const struct pci_device_id *ent){
-	resource_size_t mmio_start, mmio_len;
+	resource_size_t mmio_start, mmio_len; //memory mapped IO
 	unsigned long barMask;
 	printk(KERN_INFO "pci_networkLEDBlinkDriver_probe called \n");
-	//get BAR mask 
+	//get BAR mask  - base address register 
 	barMask = pci_select_bars(pdev, IORESOURCE_MEM);
 	printk(KERN_INFO "barMask %lx", barMask);
 	//reserve BAR areas
@@ -121,7 +132,8 @@ static int pci_networkLEDBlinkDriver_probe(struct pci_dev *pdev, const struct pc
 
 	printk(KERN_INFO "mmio start: %lx", (unsigned long) mmio_start);
 	printk(KERN_INFO "mmio len: %lx", (unsigned long) mmio_len);
-
+	// ioremap is designed specifcally to assing virtual addresses 
+	// to I/O memory regions since many I/O systems cannot be 
 	if (!(myPCI.hw_addr = ioremap(mmio_start, mmio_len)))
 	{
 		printk(KERN_INFO "iomap failed \n");
@@ -139,6 +151,7 @@ unregister_ioremap:
 unregister_selected_regions:
 	pci_release_selected_regions(pdev, pci_select_bars(pdev, IORESOURCE_MEM));
 
+	return -1;
 };
 
 static void pci_networkLEDBlinkDriver_remove(struct pci_dev *pdev){
@@ -206,7 +219,6 @@ static int __init char_driver_init(void){
 	//PCI
 	if(pci_register_driver(&pci_networkLEDBlinkDriver)){
 			printk(KERN_ERR "pci_register_driver failed \n");
-		//	goto unregister_pci_driver;
 	}
 	
 
@@ -226,6 +238,9 @@ static void __exit char_driver_exit(void){
 MODULE_AUTHOR("Abdullah Barghouti");
 MODULE_LICENSE("GPL");
 MODULE_VERSION("0.2");
-module_init(char_driver_init);
-module_exit(char_driver_exit);
+module_init(char_driver_init); // format of macro function is
+module_exit(char_driver_exit); // module_param(var, type, flags);
+							   // type is int or char 							   
+							   // flags determine if you want to expose it in sysfs (write, read)
+
 
