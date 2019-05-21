@@ -1,0 +1,83 @@
+Script started on Wed 15 May 2019 10:00:40 PM PDT
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# 8P7Pmakev/mem
+gcc -Wall -g -o userspaceDriver userspaceDriver.c -lpci -lz
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# 8PK./userspaceDriver
+0x7ffedbd47c60
+led ctl address:0x7ffedbd47c58
+led ctl vlaue: e0f0e0f
+doing led writes
+LED0 and LED2 ON
+LED0 and LED2 OFF
+running loop 1
+.....
+running loop 2
+.....
+running loop 3
+.....
+running loop 4
+.....
+running loop 5
+.....
+led ctl intial vlaue: e0f0e0f
+good packet recieved vlaue: 0
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# ./userspaceDriver
+0x7ffefebc22b0
+led ctl address:0x7ffefebc22a8
+led ctl vlaue: e0f0e0f
+doing led writes
+LED0 and LED2 ON
+LED0 and LED2 OFF
+running loop 1
+.....
+running loop 2
+.....
+running loop 3
+.....
+running loop 4
+.....
+running loop 5
+.....
+led ctl intial vlaue: e0f0e0f
+good packet recieved vlaue: 0
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# ./userspaceDriver
+0x7ffff8fac5a0
+led ctl address:0x7ffff8fac598
+led ctl vlaue: e0f0e0f
+doing led writes
+LED0 and LED2 ON
+LED0 and LED2 OFF
+running loop 1
+.....
+running loop 2
+.....
+running loop 3
+.....
+running loop 4
+.....
+running loop 5
+.....
+led ctl intial vlaue: e0f0e0f
+good packet recieved vlaue: 0
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# ./userspaceDriver
+0x7ffd776e65d0
+led ctl address:0x7ffd776e65c8
+led ctl vlaue: e0f0e0f
+doing led writes
+LED0 and LED2 ON
+LED0 and LED2 OFF
+running loop 1
+.....
+running loop 2
+.....
+running loop 3
+.....
+running loop 4
+.....
+running loop 5
+.....
+led ctl intial vlaue: e0f0e0f
+good packet recieved vlaue: 0
+0;root@barghouti-VirtualBox: /home/barghouti/Desktop/ECE373/Hw/hw4root@barghouti-VirtualBox:/home/barghouti/Desktop/ECE373/Hw/hw4# exit
+exit
+
+Script done on Wed 15 May 2019 10:03:15 PM PDT
