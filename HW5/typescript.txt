@@ -1,0 +1,42 @@
+Script started on Wed 29 May 2019 09:51:42 PM PDT
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ make
+make -C /lib/modules/4.15.0-50-generic/build SUBDIRS=/home/barghouti/Desktop/ECE373/Hw/hw5 modules
+make[1]: Entering directory '/usr/src/linux-headers-4.15.0-50-generic'
+Makefile:976: "Cannot use CONFIG_STACK_VALIDATION=y, please install libelf-dev, libelf-devel or elfutils-libelf-devel"
+  CC [M]  /home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.o
+01mK/home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.c:mK In function ‘01mKtimer_callbackmK’:
+01mK/home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.c:63:6:mK 01;35mKwarning: mKunused variable ‘01mKretmK’ [-Wunused-variable]
+  int ret;
+01;32mK      ^mK
+01mK/home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.c:mK In function ‘01mKchar_driver_writemK’:
+01mK/home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.c:204:1:mK 01;35mKwarning: mKcontrol reaches end of non-void function [-Wreturn-type]
+ }
+01;32mK ^mK
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC	  /home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.mod.o
+  LD [M]  /home/barghouti/Desktop/ECE373/Hw/hw5/LED_blink_rate_driver.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-50-generic'
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ gcc userspace.c
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo insmod LED_blink_rate_driver.ko
+[sudo] password for barghouti:
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo chmod 777 /dev/ece_led
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ ./a.out
+blink_rate read 2
+blink_rate write 2
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo rmmod LED_blink_rate_driver
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo insmod LED_blink_rate_driver.ko blink_rate=-1
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo chmod 777 /dev/ece_led
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ ./a.out
+blink_rate read 2
+blink_rate write 2
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo rmmod LED_blink_rate_driver
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo insmod LED_blink_rate_driver.ko blink_rate=10
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ sudo chmod 777 /dev/ece_led
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ ./a.out
+blink_rate read 10
+blink_rate write 10
+0;barghouti@barghouti-VirtualBox: ~/Desktop/ECE373/Hw/hw501;32mbarghouti@barghouti-VirtualBox00m:01;34m~/Desktop/ECE373/Hw/hw500m$ exit
+exit
+
+Script done on Wed 29 May 2019 09:54:18 PM PDT
