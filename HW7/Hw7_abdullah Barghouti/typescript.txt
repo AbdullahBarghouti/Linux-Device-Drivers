@@ -1,0 +1,12 @@
+Script started on Fri 07 Jun 2019 12:25:44 AM PDT
+barghouti@barghouti-VirtualBox: ~01;32mbarghouti@barghouti-VirtualBox00m:01;34m~$ unsmKamreKeKe -r
+4.19.48abdb2
+barghouti@barghouti-VirtualBox: ~01;32mbarghouti@barghouti-VirtualBox00m:01;34m~$ cd /lib/modules/4.19.48abdb2/kernel/drivers/ece
+barghouti@barghouti-VirtualBox: /lib/modules/4.19.48abdb2/kernel/drivers/ece$ ls
+LED_blink_rate_driver.ko
+barghouti@barghouti-VirtualBox: /lib/modules/4.19.48abdb2/kernel/drivers/ece$ lsmod | grep LED_blink_rate_driver
+LED_blink_rate_driver			4472  0
+barghouti@barghouti-VirtualBox: /lib/modules/4.19.48abdb2/kernel/drivers/ece$ exit
+exit
+
+Script done on Fri 07 Jun 2019 12:27:15 AM PDT

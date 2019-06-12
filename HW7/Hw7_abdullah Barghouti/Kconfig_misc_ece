@@ -1,0 +1,7 @@
+menu "Driver Selection"
+config HOMEWORK5
+	tristate "Homework 8 ECE373"
+	depends on PCI 
+	help 
+	  Blink some LED's and make it look cool by waiting .5 seconds between each blink. 
+endmenu
